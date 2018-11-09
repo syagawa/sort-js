@@ -3,7 +3,6 @@
   global.APP = global.APP ? global.APP : {};
   var APP = global.APP;
 
-
   APP.makeArr = function(len){
     var arr = [];
     for(var i = 0; i < length; i++){

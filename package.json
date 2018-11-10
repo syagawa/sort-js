@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/syagawa/sort-js/issues"
   },
-  "homepage": "https://github.com/syagawa/sort-js#readme"
+  "homepage": "https://github.com/syagawa/sort-js#readme",
+  "devDependencies": {
+    "vue": "^2.5.17"
+  }
 }

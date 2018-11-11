@@ -32,4 +32,24 @@
   var arr2 = APP.sortRandomly(arr1); 
   console.info(arr2);
 
+
+  var app = new Vue({
+    el: "#app",
+    data: {
+
+    },
+    computed: {
+
+    },
+    mounted: function(){
+
+    },
+    created: function(){
+
+    }
+  });
+
+
+
+
 })(window);

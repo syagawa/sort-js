@@ -36,7 +36,7 @@
   var app = new Vue({
     el: "#app",
     data: {
-
+      elements: arr2
     },
     computed: {
 

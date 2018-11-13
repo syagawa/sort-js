@@ -2,12 +2,13 @@
 <html>
 <head>
   <title>JS Sort</title>
+  <link rel="stylesheet" type="text/css" href="index.css">
   <script type="text/javascript" src="node_modules/vue/dist/vue.js"></script>
 </head>
 <body>
   <div id="app">
-    <ul>
-      <li v-for="(elm, index) in elements">
+    <ul class="array">
+      <li v-for="(elm, index) in elements" class="elm">
         <span class="elm" v-bind:data-number="index"></span>
       </li>
     </ul>

@@ -1,0 +1,8 @@
+.array .elm{
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  background-color: #000000;
+  margin-right: 1px;
+}
+

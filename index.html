@@ -7,11 +7,11 @@
 </head>
 <body>
   <div id="app">
-    <ul class="array">
-      <li v-for="(elm, index) in elements" class="elm">
-        <span class="elm" v-bind:data-number="index"></span>
-      </li>
-    </ul>
+    <div class="array">
+      <div v-for="(elm, index) in elements" class="elm">
+        <div class="elm-body" v-bind:data-number="index"></div>
+      </div>
+    </div>
   </div>
   <script type="text/javascript" src="index.js"></script>
 </body>

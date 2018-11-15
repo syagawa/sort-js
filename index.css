@@ -1,8 +1,11 @@
 .array .elm{
   display: inline-block;
-  width: 3px;
-  height: 3px;
-  background-color: #000000;
   margin-right: 1px;
+}
+
+.array .elm .elm-body{
+  display: inline-block;
+  width: 3px;
+  background-color: #000000;
 }
 

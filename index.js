@@ -38,10 +38,16 @@
   var app = new Vue({
     el: "#app",
     data: {
-      elements: arr2
+      elements: arr2,
+      element_min_height: 5
     },
     computed: {
 
+    },
+    methods: {
+      getHeightStyle: function(elm){
+        return (this.element_min_height + elm * 2) + "px";
+      }
     },
     mounted: function(){
 

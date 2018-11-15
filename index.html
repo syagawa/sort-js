@@ -9,7 +9,7 @@
   <div id="app">
     <div class="array">
       <div v-for="(elm, index) in elements" class="elm">
-        <div class="elm-body" v-bind:data-number="index" v-bind:style="{height: 5 + elm + 'px'}"></div>
+        <div class="elm-body" v-bind:data-number="index" v-bind:style="{height: getHeightStyle(elm)}"></div>
       </div>
     </div>
   </div>

@@ -34,7 +34,6 @@
   var arr2 = APP.sortRandomly(arr1);
   console.info(arr2);
 
-
   var app = new Vue({
     el: "#app",
     data: {
@@ -47,6 +46,9 @@
     methods: {
       getHeightStyle: function(elm){
         return (this.element_min_height + elm * 2) + "px";
+      },
+      sort: function(){
+        this.elements.sort();
       }
     },
     mounted: function(){
@@ -56,8 +58,6 @@
 
     }
   });
-
-
 
 
 })(window);

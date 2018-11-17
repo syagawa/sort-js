@@ -48,7 +48,15 @@
         return (this.element_min_height + elm * 2) + "px";
       },
       sort: function(){
-        this.elements.sort();
+        this.elements.sort(function(a, b){
+          if(a < b){
+            return -1;
+          }
+          if(a > b){
+            return 1;
+          }
+          return 0;
+        });
       }
     },
     mounted: function(){

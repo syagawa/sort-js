@@ -27,6 +27,74 @@
     return random_arr;
   };
 
+  APP.timer = {
+    start_time: "",
+    start: function(){
+      this.start_time = performance.now();
+    },
+    end: function(){
+      if(!this.start_time){
+        console.log("Start time is not set.");
+        return false;
+      }
+      var end_time = performance.now();
+      var time = end_time - this.start_time;
+      this.start_time = "";
+      return time;
+    },
+    show: function(arr){
+      var display = document.getElementById("display");
+      var i;
+      var len = arr.length;
+      for(i = 0; i < len; i++){
+        var mes = document.createElement("p");
+        mes.innerHTML = arr[i].message;
+        var code = document.createElement("p");
+        code.innerHTML = arr[i].code;
+        display.appendChild(mes);
+        display.appendChild(code);
+      }
+    },
+    hide: function(){
+      var display = document.getElementById("display");
+      display.innerHTML = "";
+    },
+    make: function(){
+      var Timer = function(){
+        var self = this;
+        self.start_time = performance.now();
+        self.end = function(){
+          if(!self.start_time){
+            console.log("Start time is not set.");
+            return false;
+          }
+          return performance.now() - self.start_time + " ms";
+        };
+      };
+      return new Timer();
+    }
+  };
+
+  APP.runCode = function(code, message){
+    var timer = new APP.timer.make();
+    code();
+    var t = timer.end();
+    var codestr = JSON.stringify(
+                    code.toString()
+                      .replace(/.*function.*\n/, "")
+                      .replace(/(?!.*\n).*/, "")
+                      .replace(/\n/g, "<br>")
+                      .replace(/\s/g, "&nbsp;")
+                  ).replace(/["]/g,'')
+                   .replace(/\\/g, '"');
+    return {
+      message: message + " " + t,
+      code: codestr
+    };
+  };
+
+
+
 
   var length = 100;
   var arr1 = APP.makeArr(length);
@@ -48,6 +116,7 @@
         return (this.element_min_height + elm * 2) + "px";
       },
       sort: function(){
+        APP.timer.start();
         this.elements.sort(function(a, b){
           if(a < b){
             return -1;
@@ -57,6 +126,8 @@
           }
           return 0;
         });
+        var t = APP.timer.end();
+        console.info(t);
       }
     },
     mounted: function(){

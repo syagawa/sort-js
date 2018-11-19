@@ -75,32 +75,34 @@
     }
   };
 
-  APP.runCode = function(code, message){
-    var timer = new APP.timer.make();
-    code();
-    var t = timer.end();
-    var codestr = JSON.stringify(
-                    code.toString()
-                      .replace(/.*function.*\n/, "")
-                      .replace(/(?!.*\n).*/, "")
-                      .replace(/\n/g, "<br>")
-                      .replace(/\s/g, "&nbsp;")
-                  ).replace(/["]/g,'')
-                   .replace(/\\/g, '"');
-    return {
-      message: message + " " + t,
-      code: codestr
-    };
-  };
-
-
-
 
   var length = 100;
   var arr1 = APP.makeArr(length);
   console.info(arr1);
   var arr2 = APP.sortRandomly(arr1);
   console.info(arr2);
+
+  var sorts = [
+    {
+      action: function(list, count){
+        list.sort(function(a, b){
+          count++;
+          if(a < b){
+            return -1;
+          }
+          if(a > b){
+            return 1;
+          }
+          return 0;
+        });
+        return {
+          list: list,
+          count: count
+        }
+      }
+    }
+  ];
+
 
   var app = new Vue({
     el: "#app",
@@ -117,17 +119,10 @@
       },
       sort: function(){
         APP.timer.start();
-        this.elements.sort(function(a, b){
-          if(a < b){
-            return -1;
-          }
-          if(a > b){
-            return 1;
-          }
-          return 0;
-        });
+        var res = sorts[0].action(this.elements, 0);
         var t = APP.timer.end();
         console.info(t);
+        console.info("count: ", res.count);
       }
     },
     mounted: function(){

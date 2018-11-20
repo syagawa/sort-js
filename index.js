@@ -11,6 +11,9 @@
     return arr;
   };
 
+  APP.displayCount = function(count, label){
+    console.info(label + " count: ", count);
+  };
 
   APP.sortRandomly = function(arr){
     var random_arr = [];
@@ -18,12 +21,15 @@
     var o = 0;
     var len = arr.length;
     var elm;
+    var count = 0;
 
     for(var i = 0; i < len; i++){
       o = Math.floor(Math.random() * arr.length);
       elm = arr.splice(o, 1)[0];
       random_arr.push(elm);
+      count++;
     }
+    APP.displayCount(count, "sortRandomly");
     return random_arr;
   };
 
@@ -84,6 +90,7 @@
 
   var sorts = [
     {
+      name: "normalSort",
       action: function(list, count){
         list.sort(function(a, b){
           count++;
@@ -97,8 +104,9 @@
         });
         return {
           list: list,
-          count: count
-        }
+          count: count,
+          label: this.name
+        };
       }
     }
   ];
@@ -122,7 +130,7 @@
         var res = sorts[0].action(this.elements, 0);
         var t = APP.timer.end();
         console.info(t);
-        console.info("count: ", res.count);
+        APP.displayCount(res.count, res.label);
       }
     },
     mounted: function(){

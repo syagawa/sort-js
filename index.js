@@ -22,7 +22,7 @@
         return {
           array: array,
           count: count,
-          label: this.name
+          label: "sortNormal"
         };
       }
     },
@@ -46,7 +46,7 @@
         return {
           array: random_arr,
           count: count,
-          label: this.name
+          label: "sortRandom"
         };
       }
     }

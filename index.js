@@ -3,6 +3,71 @@
   global.APP = global.APP ? global.APP : {};
   var APP = global.APP;
 
+  var sorts = [
+    {
+      name: "sortNormal",
+      action: function(obj){
+        var array = obj.array;
+        var count = obj.count;
+        array.sort(function(a, b){
+          count++;
+          if(a < b){
+            return -1;
+          }
+          if(a > b){
+            return 1;
+          }
+          return 0;
+        });
+        return {
+          array: array,
+          count: count,
+          label: this.name
+        };
+      }
+    },
+    {
+      name: "sortRandom",
+      action: function(obj){
+        var array = obj.array;
+        var count = obj.count;
+        var random_arr = [];
+
+        var o = 0;
+        var len = array.length;
+        var elm;
+
+        for(var i = 0; i < len; i++){
+          o = Math.floor(Math.random() * array.length);
+          elm = array.splice(o, 1)[0];
+          random_arr.push(elm);
+          count++;
+        }
+        return {
+          array: random_arr,
+          count: count,
+          label: this.name
+        };
+      }
+    }
+  ];
+
+  var runCode = function(name, obj){
+    var code = sorts.find(function(elm){
+      if(elm.name === name){
+        return elm;
+      }
+    }).action;
+
+    APP.timer.start();
+    var res = code(obj);
+    var t = APP.timer.end();
+    console.info(t);
+    APP.displayCount(res.count, res.label);
+    return res;
+  };
+
+
   APP.makeArr = function(len){
     var arr = [];
     for(var i = 0; i < len; i++){
@@ -16,21 +81,8 @@
   };
 
   APP.sortRandomly = function(arr){
-    var random_arr = [];
-
-    var o = 0;
-    var len = arr.length;
-    var elm;
-    var count = 0;
-
-    for(var i = 0; i < len; i++){
-      o = Math.floor(Math.random() * arr.length);
-      elm = arr.splice(o, 1)[0];
-      random_arr.push(elm);
-      count++;
-    }
-    APP.displayCount(count, "sortRandomly");
-    return random_arr;
+    var res = runCode("sortRandom", { array: arr, count: 0 });
+    return res.array;
   };
 
   APP.timer = {
@@ -88,29 +140,6 @@
   var arr2 = APP.sortRandomly(arr1);
   console.info(arr2);
 
-  var sorts = [
-    {
-      name: "normalSort",
-      action: function(list, count){
-        list.sort(function(a, b){
-          count++;
-          if(a < b){
-            return -1;
-          }
-          if(a > b){
-            return 1;
-          }
-          return 0;
-        });
-        return {
-          list: list,
-          count: count,
-          label: this.name
-        };
-      }
-    }
-  ];
-
 
   var app = new Vue({
     el: "#app",
@@ -126,11 +155,7 @@
         return (this.element_min_height + elm * 2) + "px";
       },
       sort: function(){
-        APP.timer.start();
-        var res = sorts[0].action(this.elements, 0);
-        var t = APP.timer.end();
-        console.info(t);
-        APP.displayCount(res.count, res.label);
+        var res = runCode("sortNormal", {array: this.elements, count: 0});
       }
     },
     mounted: function(){

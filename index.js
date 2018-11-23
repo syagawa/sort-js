@@ -62,8 +62,8 @@
     APP.timer.start();
     var res = code(obj);
     var t = APP.timer.end();
-    console.info(t);
     APP.displayCount(res.count, res.label);
+    res.time = t;
     return res;
   };
 
@@ -138,9 +138,19 @@
     el: "#app",
     data: {
       elements: arr1,
-      element_min_height: 5
+      element_min_height: 5,
+      result: ""
     },
     computed: {
+      sortname: function(){
+        return this.result.label;
+      },
+      sortcount: function(){
+        return this.result.count;
+      },
+      sorttime: function(){
+        return this.result.time;
+      }
 
     },
     methods: {
@@ -149,10 +159,13 @@
       },
       sort: function(){
         var res = runCode("sortNormal", {array: this.elements, count: 0});
+        this.elements = res.array;
+        this.result = res;
       },
       sortRandom: function(){
         var res = runCode("sortRandom", {array: this.elements, count: 0});
         this.elements = res.array;
+        this.result = res;
       }
     },
     mounted: function(){

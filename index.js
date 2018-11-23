@@ -80,11 +80,6 @@
     console.info(label + " count: ", count);
   };
 
-  APP.sortRandomly = function(arr){
-    var res = runCode("sortRandom", { array: arr, count: 0 });
-    return res.array;
-  };
-
   APP.timer = {
     start_time: "",
     start: function(){
@@ -137,14 +132,12 @@
   var length = 100;
   var arr1 = APP.makeArr(length);
   console.info(arr1);
-  var arr2 = APP.sortRandomly(arr1);
-  console.info(arr2);
 
 
   var app = new Vue({
     el: "#app",
     data: {
-      elements: arr2,
+      elements: arr1,
       element_min_height: 5
     },
     computed: {
@@ -156,6 +149,10 @@
       },
       sort: function(){
         var res = runCode("sortNormal", {array: this.elements, count: 0});
+      },
+      sortRandom: function(){
+        var res = runCode("sortRandom", {array: this.elements, count: 0});
+        this.elements = res.array;
       }
     },
     mounted: function(){

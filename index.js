@@ -3,6 +3,13 @@
   global.APP = global.APP ? global.APP : {};
   var APP = global.APP;
 
+  var swap = function(array, a, b){
+    var t = array[a];
+    array[a] = array[b];
+    array[b] = t;
+    return array;
+  };
+
   var sorts = [
     {
       name: "sortNormal",

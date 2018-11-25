@@ -10,6 +10,10 @@
     return array;
   };
 
+  var yyy = [1,2,3,4,5];
+  var iii = swap(yyy, 0, 4);
+  console.info(iii);
+
   var sorts = [
     {
       name: "sortNormal",
@@ -56,7 +60,38 @@
           label: "sortRandom"
         };
       }
+    },
+    {
+      name: "sortBubble",
+      action: function(obj){
+        var array = obj.array;
+        var count = obj.count;
+
+        var len = array.length;
+
+        for(var i = 0; i < len; i++){
+          for(var j = 0; j < len; j++){
+            var a = j;
+            var b = j + 1;
+            count++;
+            if(b >= len){
+              continue;
+            }
+            if(array[a] > array[b]){
+              array = swap(array, a, b);
+            }
+          }
+        }
+
+        return {
+          array: array,
+          count: count,
+          label: "sortBubble"
+        };
+      }
     }
+
+
   ];
 
   var runCode = function(name, obj){
@@ -164,7 +199,7 @@
       getHeightStyle: function(elm){
         return (this.element_min_height + elm * 2) + "px";
       },
-      sort: function(){
+      sortNormal: function(){
         var res = runCode("sortNormal", {array: this.elements, count: 0});
         this.elements = res.array;
         this.result = res;
@@ -173,7 +208,13 @@
         var res = runCode("sortRandom", {array: this.elements, count: 0});
         this.elements = res.array;
         this.result = res;
+      },
+      sortBubble: function(){
+        var res = runCode("sortBubble", {array: this.elements, count: 0});
+        this.elements = res.array;
+        this.result = res;
       }
+
     },
     mounted: function(){
 

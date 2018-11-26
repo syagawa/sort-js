@@ -10,10 +10,6 @@
     return array;
   };
 
-  var yyy = [1,2,3,4,5];
-  var iii = swap(yyy, 0, 4);
-  console.info(iii);
-
   var sorts = [
     {
       name: "sortNormal",

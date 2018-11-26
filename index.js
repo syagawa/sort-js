@@ -69,12 +69,12 @@
           for(var j = 0; j < len; j++){
             var a = j;
             var b = j + 1;
-            count++;
             if(b >= len){
               continue;
             }
             if(array[a] > array[b]){
               array = swap(array, a, b);
+              count++;
             }
           }
         }

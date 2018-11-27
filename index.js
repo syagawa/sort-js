@@ -166,16 +166,13 @@
     }
   };
 
-
   var length = 100;
-  var arr1 = APP.makeArr(length);
-  console.info(arr1);
-
+  var sort_array = APP.makeArr(length);
 
   var app = new Vue({
     el: "#app",
     data: {
-      elements: arr1,
+      elements: sort_array,
       element_min_height: 5,
       result: ""
     },

@@ -7,6 +7,7 @@
 </head>
 <body>
   <div id="app">
+    <input type="number" v-model="array_length" v-on:change="changeLength">
     <div class="array">
       <div v-for="(elm, index) in elements" class="elm">
         <div class="elm-body" v-bind:data-number="index" v-bind:style="{height: getHeightStyle(elm)}"></div>

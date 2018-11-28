@@ -172,11 +172,16 @@
   var app = new Vue({
     el: "#app",
     data: {
-      elements: sort_array,
+      // elements: sort_array,
       element_min_height: 5,
-      result: ""
+      result: "",
+      array_length: 100,
+      array: []
     },
     computed: {
+      elements: function(){
+        return this.array;
+      },
       sortname: function(){
         return this.result.label;
       },
@@ -194,23 +199,25 @@
       },
       sortNormal: function(){
         var res = runCode("sortNormal", {array: this.elements, count: 0});
-        this.elements = res.array;
+        this.array = res.array;
         this.result = res;
       },
       sortRandom: function(){
         var res = runCode("sortRandom", {array: this.elements, count: 0});
-        this.elements = res.array;
+        this.array = res.array;
         this.result = res;
       },
       sortBubble: function(){
         var res = runCode("sortBubble", {array: this.elements, count: 0});
-        this.elements = res.array;
+        this.array = res.array;
         this.result = res;
+      },
+      changeLength: function(){
+        this.array = APP.makeArr(this.array_length);
       }
-
     },
     mounted: function(){
-
+      this.array = APP.makeArr(this.array_length);
     },
     created: function(){
 

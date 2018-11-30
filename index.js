@@ -62,8 +62,10 @@
       action: function(obj){
         var array = obj.array;
         var count = obj.count;
-
         var len = array.length;
+
+        var snapshots = [];
+        snapshots.push(array.join(","));
 
         for(var i = 0; i < len; i++){
           for(var j = 0; j < len; j++){
@@ -75,6 +77,7 @@
             if(array[a] > array[b]){
               array = swap(array, a, b);
               count++;
+              snapshots.push(array.join(","));
             }
           }
         }
@@ -82,7 +85,8 @@
         return {
           array: array,
           count: count,
-          label: "sortBubble"
+          label: "sortBubble",
+          snapshots: snapshots
         };
       }
     }
@@ -220,7 +224,7 @@
       this.array = APP.makeArr(this.array_length);
     },
     created: function(){
-
+      global.app = this;
     }
   });
 

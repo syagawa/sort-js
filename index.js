@@ -16,20 +16,27 @@
       action: function(obj){
         var array = obj.array;
         var count = obj.count;
+        var snapshots = [];
+        snapshots.push(array.join(","));
+
         array.sort(function(a, b){
-          count++;
+          console.info(arguments[Symbol.iterator]());
           if(a < b){
-            return -1;
+            val = -1;
+            snapshots.push(array.join(","));
           }
           if(a > b){
-            return 1;
+            val = 1;
+            snapshots.push(array.join(","));
           }
-          return 0;
+          count++;
+          return val;
         });
         return {
           array: array,
           count: count,
-          label: "sortNormal"
+          label: "sortNormal",
+          snapshots: snapshots
         };
       }
     },
@@ -40,6 +47,9 @@
         var count = obj.count;
         var random_arr = [];
 
+        var snapshots = [];
+        snapshots.push(array.join(","));
+
         var o = 0;
         var len = array.length;
         var elm;
@@ -49,11 +59,13 @@
           elm = array.splice(o, 1)[0];
           random_arr.push(elm);
           count++;
+          snapshots.push(random_arr.join(","));
         }
         return {
           array: random_arr,
           count: count,
-          label: "sortRandom"
+          label: "sortRandom",
+          snapshots: snapshots
         };
       }
     },
@@ -94,6 +106,10 @@
   ];
 
   var runCode = function(name, obj){
+
+    var tempArr = JSON.parse( JSON.stringify(obj.array) );
+    obj.array = tempArr;
+
     var code = sorts.find(function(elm){
       if(elm.name === name){
         return elm;
@@ -179,7 +195,8 @@
       element_min_height: 5,
       result: "",
       array_length: 100,
-      array: []
+      array: [],
+      time: 10
     },
     computed: {
       elements: function(){
@@ -201,17 +218,16 @@
       },
       sortNormal: function(){
         var res = runCode("sortNormal", {array: this.elements, count: 0});
-        this.array = res.array;
         this.result = res;
+        this.updateArrayInOrder(this.result.snapshots);
       },
       sortRandom: function(){
         var res = runCode("sortRandom", {array: this.elements, count: 0});
-        this.array = res.array;
         this.result = res;
+        this.updateArrayInOrder(this.result.snapshots);
       },
       sortBubble: function(){
         var res = runCode("sortBubble", {array: this.elements, count: 0});
-        this.array = res.array;
         this.result = res;
         this.updateArrayInOrder(this.result.snapshots);
       },
@@ -220,7 +236,7 @@
       },
       updateArrayInOrder: function(snapshots){
         var self = this;
-        var time = 10;
+        var time = this.time;
         var len = snapshots.length;
         var setArray = function(arr){
           return function(){

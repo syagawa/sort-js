@@ -91,7 +91,6 @@
       }
     }
 
-
   ];
 
   var runCode = function(name, obj){
@@ -195,7 +194,6 @@
       sorttime: function(){
         return this.result.time;
       }
-
     },
     methods: {
       getHeightStyle: function(elm){
@@ -215,9 +213,26 @@
         var res = runCode("sortBubble", {array: this.elements, count: 0});
         this.array = res.array;
         this.result = res;
+        this.updateArrayInOrder(this.result.snapshots);
       },
       changeLength: function(){
         this.array = APP.makeArr(this.array_length);
+      },
+      updateArrayInOrder: function(snapshots){
+        var self = this;
+        var time = 10;
+        var len = snapshots.length;
+        var setArray = function(arr){
+          return function(){
+            self.array = arr;
+          }
+        };
+
+        for(var i = 0; i < len; i++){
+          var arr = snapshots[i].split(",").map(function(elm){ return Number(elm); });
+          setTimeout(setArray(arr), time);
+        }
+
       }
     },
     mounted: function(){

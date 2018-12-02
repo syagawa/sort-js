@@ -12,7 +12,7 @@
 
   var sorts = [
     {
-      name: "sortNormal",
+      name: "sortNative",
       action: function(obj){
         var array = obj.array;
         var count = obj.count;
@@ -35,7 +35,7 @@
         return {
           array: array,
           count: count,
-          label: "sortNormal",
+          label: "sortNative",
           snapshots: snapshots
         };
       }
@@ -216,8 +216,8 @@
       getHeightStyle: function(elm){
         return (this.element_min_height + elm * 2) + "px";
       },
-      sortNormal: function(){
-        var res = runCode("sortNormal", {array: this.elements, count: 0});
+      sortNative: function(){
+        var res = runCode("sortNative", {array: this.elements, count: 0});
         this.result = res;
         this.updateArrayInOrder(this.result.snapshots);
       },

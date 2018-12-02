@@ -20,16 +20,19 @@
         snapshots.push(array.join(","));
 
         array.sort(function(a, b){
-          console.info(arguments[Symbol.iterator]());
           if(a < b){
             val = -1;
-            snapshots.push(array.join(","));
           }
           if(a > b){
             val = 1;
-            snapshots.push(array.join(","));
           }
           count++;
+          var current = array.join(",");
+          var pre = snapshots[snapshots.length - 1];
+          if(current !== pre){
+            snapshots.push(current);
+          }
+          // snapshots.push(current);
           return val;
         });
         return {

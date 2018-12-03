@@ -104,7 +104,42 @@
           snapshots: snapshots
         };
       }
+    },
+    {
+      name: "sortInsertion",
+      action: function(obj){
+        var array = obj.array;
+        var count = obj.count;
+        var len = array.length;
+
+        var snapshots = [];
+        snapshots.push(array.join(","));
+
+        for(var i = 1; i < len; i++){
+          var temp = array[i];
+          if(array[i-1] > temp){
+            var j = i;
+            do{
+              array[j] = array[j-1];
+              j--;
+              count++;
+              snapshots.push(array.join(","));
+            }while(j > 0 && array[j - 1] > temp);
+            array[j] = temp;
+            count++;
+            snapshots.push(array.join(","));
+          }
+        }
+
+        return {
+          array: array,
+          count: count,
+          label: "sortInsertion",
+          snapshots: snapshots
+        };
+      }
     }
+
 
   ];
 
@@ -231,6 +266,11 @@
       },
       sortBubble: function(){
         var res = runCode("sortBubble", {array: this.elements, count: 0});
+        this.result = res;
+        this.updateArrayInOrder(this.result.snapshots);
+      },
+      sortInsertion: function(){
+        var res = runCode("sortInsertion", {array: this.elements, count: 0});
         this.result = res;
         this.updateArrayInOrder(this.result.snapshots);
       },

@@ -20,6 +20,7 @@
         snapshots.push(array.join(","));
 
         array.sort(function(a, b){
+          var val;
           if(a < b){
             val = -1;
           }

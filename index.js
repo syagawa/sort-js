@@ -139,6 +139,41 @@
           snapshots: snapshots
         };
       }
+    },
+    {
+      name: "sortSelection",
+      action: function(obj){
+        var array = obj.array;
+        var count = obj.count;
+        var len = array.length;
+
+        var snapshots = [];
+        snapshots.push(array.join(","));
+
+        var min,min_pos;
+
+        for(var i = 0; i < len; i++){
+          min = array[i];
+          min_pos = i;
+          for(var j = i + 1; j < len; j++){
+            if(array[j] < min){
+              min = array[j];
+              min_pos = j;
+              count++;
+            }
+          }
+          array = swap(array, i, min_pos);
+          count++;
+          snapshots.push(array.join(","));
+        }
+
+        return {
+          array: array,
+          count: count,
+          label: "sortSelection",
+          snapshots: snapshots
+        };
+      }
     }
 
 
@@ -225,7 +260,6 @@
   };
 
   var length = 100;
-  var sort_array = APP.makeArr(length);
 
   var app = new Vue({
     el: "#app",
@@ -275,6 +309,11 @@
         this.result = res;
         this.updateArrayInOrder(this.result.snapshots);
       },
+      sortSelection: function(){
+        var res = runCode("sortSelection", {array: this.elements, count: 0});
+        this.result = res;
+        this.updateArrayInOrder(this.result.snapshots);
+      },
       changeLength: function(){
         this.array = APP.makeArr(this.array_length);
       },
@@ -285,7 +324,7 @@
         var setArray = function(arr){
           return function(){
             self.array = arr;
-          }
+          };
         };
 
         for(var i = 0; i < len; i++){

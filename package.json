@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/syagawa/sort-js#readme",
   "devDependencies": {
-    "vue": "^2.5.17"
+    "vue": "^2.6.10"
   }
 }

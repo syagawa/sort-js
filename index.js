@@ -30,12 +30,14 @@
           count++;
           var current = array.join(",");
           var pre = snapshots[snapshots.length - 1];
-          if(current !== pre){
-            snapshots.push(current);
-          }
-          // snapshots.push(current);
+          // if(current !== pre){
+          //   snapshots.push(current);
+          // }
+          snapshots.push(current);
+          // console.info(val);
           return val;
         });
+        // console.info(array, snapshots);
         return {
           array: array,
           count: count,
